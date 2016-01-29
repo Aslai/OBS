@@ -135,6 +135,13 @@ bool OBSGetRecording()          {return API->GetRecording();}
 
 bool OBSGetKeepRecording()      {return API->GetKeepRecording();}
 
+
+CTSTR OBSGetConfigData(CTSTR header, CTSTR key) { return API->GetConfigData(header, key); }
+
+void OBSSetConfigString(CTSTR header, CTSTR key, CTSTR value){ API->SetConfigString(header, key, value); }
+void OBSSetConfigInt(CTSTR header, CTSTR key, int value){ API->SetConfigInt(header, key, value); }
+void OBSSetConfigFloat(CTSTR header, CTSTR key, float value){ API->SetConfigFloat(header, key, value); }
+
 void OBSStartStopRecordingReplayBuffer() {API->StartStopRecordingReplayBuffer();}
 bool OBSGetRecordingReplayBuffer()       {return API->GetRecordingReplayBuffer();}
 void OBSSaveReplayBuffer()               {API->SaveReplayBuffer();}

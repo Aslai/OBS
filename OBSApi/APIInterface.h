@@ -200,7 +200,12 @@ public:
 
     virtual void DisableTransitions() = 0;
     virtual void EnableTransitions() = 0;
-    virtual bool TransitionsEnabled() const = 0;
+	virtual bool TransitionsEnabled() const = 0;
+
+	virtual CTSTR GetConfigData(CTSTR header, CTSTR key) const = 0;
+	virtual void SetConfigString(CTSTR header, CTSTR key, CTSTR value) = 0;
+	virtual void SetConfigInt(CTSTR header, CTSTR key, int value) = 0;
+	virtual void SetConfigFloat(CTSTR header, CTSTR key, float value) = 0;
 };
 
 BASE_EXPORT extern APIInterface *API;
@@ -289,6 +294,12 @@ BASE_EXPORT bool OBSGetKeepRecording();
 BASE_EXPORT void OBSStartStopRecordingReplayBuffer();
 BASE_EXPORT bool OBSGetRecordingReplayBuffer();
 BASE_EXPORT void OBSSaveReplayBuffer();
+
+BASE_EXPORT CTSTR OBSGetConfigData(CTSTR header, CTSTR key);
+
+BASE_EXPORT void OBSSetConfigString(CTSTR header, CTSTR key, CTSTR value);
+BASE_EXPORT void OBSSetConfigInt(CTSTR header, CTSTR key, int value);
+BASE_EXPORT void OBSSetConfigFloat(CTSTR header, CTSTR key, float value);
 
 BASE_EXPORT void OBSSetSourceOrder(StringList &sourceNames);
 BASE_EXPORT void OBSSetSourceRender(CTSTR lpSource, bool render);

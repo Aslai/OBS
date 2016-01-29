@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OBS", "OBS.vcxproj", "{221C92F4-3416-43F1-8E4E-78657AFD0111}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9E7B3527-11AA-46BA-A82F-C58761F9B56F} = {9E7B3527-11AA-46BA-A82F-C58761F9B56F}
@@ -58,11 +60,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ObsNvenc", "ObsNvenc\ObsNve
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libMinHook", "minhook\build\libMinHook.vcxproj", "{65021938-D251-46FA-BC3D-85C385D4C06D}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scenesw", "scenesw\scenesw.vcxproj", "{6AC307E3-7D59-4DB2-944F-961E299F063A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{11A35235-DD48-41E2-8F40-825C78024BC0} = {11A35235-DD48-41E2-8F40-825C78024BC0}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -192,14 +189,6 @@ Global
 		{65021938-D251-46FA-BC3D-85C385D4C06D}.Release|Win32.Build.0 = Release|Win32
 		{65021938-D251-46FA-BC3D-85C385D4C06D}.Release|x64.ActiveCfg = Release|x64
 		{65021938-D251-46FA-BC3D-85C385D4C06D}.Release|x64.Build.0 = Release|x64
-		{6AC307E3-7D59-4DB2-944F-961E299F063A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{6AC307E3-7D59-4DB2-944F-961E299F063A}.Debug|Win32.Build.0 = Debug|Win32
-		{6AC307E3-7D59-4DB2-944F-961E299F063A}.Debug|x64.ActiveCfg = Debug|x64
-		{6AC307E3-7D59-4DB2-944F-961E299F063A}.Debug|x64.Build.0 = Debug|x64
-		{6AC307E3-7D59-4DB2-944F-961E299F063A}.Release|Win32.ActiveCfg = Release|Win32
-		{6AC307E3-7D59-4DB2-944F-961E299F063A}.Release|Win32.Build.0 = Release|Win32
-		{6AC307E3-7D59-4DB2-944F-961E299F063A}.Release|x64.ActiveCfg = Release|x64
-		{6AC307E3-7D59-4DB2-944F-961E299F063A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

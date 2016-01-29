@@ -681,7 +681,11 @@ public:
     virtual void GetSceneCollectionNames(StringList &list) const { return App->GetSceneCollection(list); }
     virtual void DisableTransitions()          { App->performTransition = false; }
     virtual void EnableTransitions()           { App->performTransition = true; }
-    virtual bool TransitionsEnabled() const    { return App->performTransition; }
+	virtual bool TransitionsEnabled() const    { return App->performTransition; }
+	virtual CTSTR GetConfigData(CTSTR header, CTSTR key) const		   { return AppConfig->GetStringPtr(header, key); }
+	virtual void SetConfigString(CTSTR header, CTSTR key, CTSTR value) 	   { AppConfig->SetString(header, key, value); }
+	virtual void SetConfigInt(CTSTR header, CTSTR key, int value) 	   { AppConfig->SetInt(header, key, value); }
+	virtual void SetConfigFloat(CTSTR header, CTSTR key, float value) 	   { AppConfig->SetFloat(header, key, value); }
 };
 
 APIInterface* CreateOBSApiInterface()
