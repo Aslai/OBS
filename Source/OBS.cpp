@@ -787,7 +787,7 @@ OBS::OBS()
     reconnectTimeout = AppConfig->GetInt(TEXT("Publish"), TEXT("AutoReconnectTimeout"), 10);
 
     hHotkeyThread = OSCreateThread((XTHREAD)HotkeyThread, NULL);
-
+#define OBS_DISABLE_AUTOUPDATE
 #ifndef OBS_DISABLE_AUTOUPDATE
     ULARGE_INTEGER lastUpdateTime;
     ULARGE_INTEGER currentTime;
