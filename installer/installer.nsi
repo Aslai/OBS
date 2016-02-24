@@ -2,7 +2,9 @@
 
 ; Define your application name
 !define APPNAME "Open Broadcaster Software"
-!define APPNAMEANDVERSION "Open Broadcaster Software 0.657b"
+!define VERSION "0.2.321"
+!define APPNAMEANDVERSION "Hubtag Caster v${VERSION}"
+!define OBS "Open Broadcaster Software"
 
 ; Additional script dependencies
 !include WinVer.nsh
@@ -12,7 +14,7 @@
 Name "${APPNAMEANDVERSION}"
 InstallDir "$PROGRAMFILES32\OBS"
 InstallDirRegKey HKLM "Software\${APPNAME}" ""
-OutFile "OBS_Installer.exe"
+OutFile "Hubtag_Caster_Installer_v${VERSION}.exe"
 
 ; Use compression
 SetCompressor LZMA
@@ -22,6 +24,9 @@ RequestExecutionLevel admin
 
 ; Modern interface settings
 !include "MUI.nsh"
+
+!define MUI_ICON ".\installer_reqs\castericon.ico"
+!define MUI_UNICON ".\installer_reqs\castericon.ico"
 
 !define MUI_ABORTWARNING
 !define MUI_FINISHPAGE_RUN "$PROGRAMFILES32\OBS\OBS.exe"
@@ -131,7 +136,16 @@ Section "Open Broadcaster Software" Section1
 	; We no longer use shader cache
 	;RMDir /R "$APPDATA\OBS\shaderCache"
 
+	;Install OBS if it is not already installed
+	;ReadRegStr $R0 HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${OBS}" "UninstallString"
+	;IfFileExists $R0 Installed +1
+
 	; Set Section Files and Shortcuts
+	
+	Delete "$PROGRAMFILES32\OBS\dbghelp.dll"
+	RMDir /r "$APPDATA\Hubtag\Plugin"
+	RMDir /r "$APPDATA\Hubtag\Plugin_trump"
+	
 	SetOutPath "$PROGRAMFILES32\OBS"
 	File "/oname=LICENSE" "..\COPYING"
 	File "32bit\OBS.exe"
@@ -141,7 +155,6 @@ Section "Open Broadcaster Software" Section1
 	File "32bit\services.xconfig"
 	File "32bit\\*.pdb"
 	File "32bit\ObsNvenc.dll"
-	File "$%WindowsSDK80Path%Debuggers\x86\dbghelp.dll"
 	SetOutPath "$PROGRAMFILES32\OBS\locale"
 	File "32bit\locale\*.txt"
 	SetOutPath "$PROGRAMFILES32\OBS\shaders\"
@@ -152,27 +165,27 @@ Section "Open Broadcaster Software" Section1
 	File "32bit\plugins\GraphicsCapture.dll"
 	File "32bit\plugins\PSVPlugin.dll"
 	File "32bit\plugins\scenesw.dll"
-	SetOutPath "$PROGRAMFILES32\OBS\plugins\PSVPlugin\locale\"
-	File "32bit\plugins\PSVPlugin\locale\*.txt"
-	SetOutPath "$PROGRAMFILES32\OBS\plugins\scenesw\locale\"
-	File "32bit\plugins\scenesw\locale\*.txt"
-	SetOutPath "$PROGRAMFILES32\OBS\plugins\DShowPlugin\locale\"
-	File "32bit\plugins\DShowPlugin\locale\*.txt"
-	SetOutPath "$PROGRAMFILES32\OBS\plugins\DShowPlugin\shaders\"
-	File "32bit\plugins\DShowPlugin\shaders\*.?Shader"
+	SetOutPath "$PROGRAMFILES32\OBS\plugins\PSVPlugin\"
+	File /r "32bit\plugins\PSVPlugin\"
+	SetOutPath "$PROGRAMFILES32\OBS\plugins\scenesw\"
+	File /r "32bit\plugins\scenesw\"
+	SetOutPath "$PROGRAMFILES32\OBS\plugins\DShowPlugin\"
+	File /r "32bit\plugins\DShowPlugin\"
 	SetOutPath "$PROGRAMFILES32\OBS\plugins\GraphicsCapture\"
+	File /r "32bit\plugins\GraphicsCapture\"
 	
 	ClearErrors
 	
-	File "32bit\plugins\GraphicsCapture\GraphicsCaptureHook.dll"
-	File "32bit\plugins\GraphicsCapture\GraphicsCaptureHook64.dll"
-	File "32bit\plugins\GraphicsCapture\injectHelper.exe"
-	File "32bit\plugins\GraphicsCapture\injectHelper64.exe"
+	File "installer_reqs\other_plugins\32bit\GraphicsCapture\GraphicsCaptureHook.dll"
+	File "installer_reqs\other_plugins\32bit\GraphicsCapture\GraphicsCaptureHook64.dll"
+	File "installer_reqs\other_plugins\32bit\GraphicsCapture\injectHelper.exe"
+	File "installer_reqs\other_plugins\32bit\GraphicsCapture\injectHelper64.exe"
 	
 	IfErrors 0 +2
 		StrCpy $outputErrors "yes"
 	
 	${if} ${RunningX64}
+		Delete "$PROGRAMFILES64\OBS\dbghelp.dll"
 		SetOutPath "$PROGRAMFILES64\OBS"
 		File "/oname=LICENSE" "..\COPYING"
 		File "64bit\OBS.exe"
@@ -182,7 +195,6 @@ Section "Open Broadcaster Software" Section1
 		File "64bit\services.xconfig"
 		File "64bit\*.pdb"
 		File "64bit\ObsNvenc.dll"
-		File "$%WindowsSDK80Path%Debuggers\x64\dbghelp.dll"
 		SetOutPath "$PROGRAMFILES64\OBS\locale"
 		File "64bit\locale\*.txt"
 		SetOutPath "$PROGRAMFILES64\OBS\shaders\"
@@ -193,15 +205,14 @@ Section "Open Broadcaster Software" Section1
 		File "64bit\plugins\GraphicsCapture.dll"
 		File "64bit\plugins\PSVPlugin.dll"
 		File "64bit\plugins\scenesw.dll"
-		SetOutPath "$PROGRAMFILES64\OBS\plugins\PSVPlugin\locale\"
-		File "64bit\plugins\PSVPlugin\locale\*.txt"
-		SetOutPath "$PROGRAMFILES64\OBS\plugins\scenesw\locale\"
-		File "64bit\plugins\scenesw\locale\*.txt"
-		SetOutPath "$PROGRAMFILES64\OBS\plugins\DShowPlugin\locale\"
-		File "64bit\plugins\DShowPlugin\locale\*.txt"
-		SetOutPath "$PROGRAMFILES64\OBS\plugins\DShowPlugin\shaders\"
-		File "64bit\plugins\DShowPlugin\shaders\*.?Shader"
+		SetOutPath "$PROGRAMFILES64\OBS\plugins\PSVPlugin\"
+		File /r "64bit\plugins\PSVPlugin\"
+		SetOutPath "$PROGRAMFILES64\OBS\plugins\scenesw\"
+		File /r "64bit\plugins\scenesw\"
+		SetOutPath "$PROGRAMFILES64\OBS\plugins\DShowPlugin\"
+		File /r "64bit\plugins\DShowPlugin\"
 		SetOutPath "$PROGRAMFILES64\OBS\plugins\GraphicsCapture\"
+		File /r "64bit\plugins\GraphicsCapture\"
 		
 		ClearErrors
 		
@@ -218,14 +229,28 @@ Section "Open Broadcaster Software" Section1
 	WriteUninstaller "$PROGRAMFILES32\OBS\uninstall.exe"
 
 	SetOutPath "$PROGRAMFILES32\OBS"
-	CreateShortCut "$DESKTOP\Open Broadcaster Software.lnk" "$PROGRAMFILES32\OBS\OBS.exe"
+	CreateShortCut "$DESKTOP\Hubtag Caster.lnk" "$PROGRAMFILES32\OBS\OBS.exe" "" "$PROGRAMFILES32\OBS\plugins\HubtagPlugin\castericon.ico" 0
 	CreateDirectory "$SMPROGRAMS\Open Broadcaster Software"
-	CreateShortCut "$SMPROGRAMS\Open Broadcaster Software\Open Broadcaster Software (32bit).lnk" "$PROGRAMFILES32\OBS\OBS.exe"
-	CreateShortCut "$SMPROGRAMS\Open Broadcaster Software\Uninstall.lnk" "$PROGRAMFILES32\OBS\uninstall.exe"
+	CreateShortCut "$SMPROGRAMS\Open Broadcaster Software\Hubtag Caster (32bit).lnk" "$PROGRAMFILES32\OBS\OBS.exe" "" "$PROGRAMFILES32\OBS\plugins\HubtagPlugin\castericon.ico" 0
+	CreateShortCut "$SMPROGRAMS\Open Broadcaster Software\Uninstall.lnk" "$PROGRAMFILES32\OBS\uninstall.exe" "" "$PROGRAMFILES32\OBS\plugins\HubtagPlugin\castericon.ico" 0
 
 	${if} ${RunningX64}
 		SetOutPath "$PROGRAMFILES64\OBS"
-		CreateShortCut "$SMPROGRAMS\Open Broadcaster Software\Open Broadcaster Software (64bit).lnk" "$PROGRAMFILES64\OBS\OBS.exe"
+		CreateShortCut "$SMPROGRAMS\Open Broadcaster Software\Hubtag Caster (64bit).lnk" "$PROGRAMFILES64\OBS\OBS.exe" "" "$PROGRAMFILES64\OBS\plugins\HubtagPlugin\castericon.ico" 0
+	${endif}
+
+	; Only add Hubtag Caster plugin
+	Installed:
+	SetOutPath "$PROGRAMFILES32\OBS\plugins\"
+	File "32bit\plugins\HubtagPluginWrapper.dll"
+	SetOutPath "$PROGRAMFILES32\OBS\plugins\HubtagPlugin\"
+	File /r "32bit\plugins\HubtagPlugin\"
+
+	${if} ${RunningX64}
+		SetOutPath "$PROGRAMFILES64\OBS\plugins\"
+		File "64bit\plugins\HubtagPluginWrapper.dll"
+		SetOutPath "$PROGRAMFILES64\OBS\plugins\HubtagPlugin\"
+		File /r "64bit\plugins\HubtagPlugin\"
 	${endif}
 
 	SetOutPath "$PROGRAMFILES32\OBS"
@@ -236,10 +261,18 @@ SectionEnd
 
 Section -FinishSection
 
+	ReadRegStr $R0 HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${OBS}" "UninstallString"
+
+	IfFileExists $R0 Installed +1
+
 	WriteRegStr HKLM "Software\${APPNAME}" "" "$PROGRAMFILES32\OBS"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$PROGRAMFILES32\OBS\uninstall.exe"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "Publisher" "Hubtag"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayVersion" "${VERSION}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayIcon" "$PROGRAMFILES32\OBS\plugins\HubtagPlugin\castericon.ico"
 
+	Installed:
 SectionEnd
 
 ; Modern install component descriptions
@@ -260,11 +293,11 @@ Section "un.OBS Program Files"
 	Delete "$PROGRAMFILES32\OBS\uninstall.exe"
 
 	; Delete Shortcuts
-	Delete "$DESKTOP\Open Broadcaster Software.lnk"
-	Delete "$SMPROGRAMS\Open Broadcaster Software\Open Broadcaster Software (32bit).lnk"
+	Delete "$DESKTOP\Hubtag Caster.lnk"
+	Delete "$SMPROGRAMS\Open Broadcaster Software\Hubtag Caster (32bit).lnk"
 	Delete "$SMPROGRAMS\Open Broadcaster Software\Uninstall.lnk"
 	${if} ${RunningX64}
-		Delete "$SMPROGRAMS\Open Broadcaster Software\Open Broadcaster Software (64bit).lnk"
+		Delete "$SMPROGRAMS\Open Broadcaster Software\Hubtag Caster (64bit).lnk"
 	${endif}
 
 	; Clean up Open Broadcaster Software
@@ -275,10 +308,13 @@ Section "un.OBS Program Files"
 	Delete "$PROGRAMFILES32\OBS\OBSApi.dll"
 	Delete "$PROGRAMFILES32\OBS\services.xconfig"
 	Delete "$PROGRAMFILES32\OBS\*.pdb"
+	Delete "$PROGRAMFILES32\OBS\*.txt"
+	Delete "$PROGRAMFILES32\OBS\debug.txt"
 	Delete "$PROGRAMFILES32\OBS\ObsNvenc.dll"
 	Delete "$PROGRAMFILES32\OBS\dbghelp.dll"
 	Delete "$PROGRAMFILES32\OBS\locale\*.txt"
 	Delete "$PROGRAMFILES32\OBS\shaders\*.?Shader"
+	Delete "$PROGRAMFILES32\OBS\plugins\HubtagPluginWrapper.dll"
 	Delete "$PROGRAMFILES32\OBS\plugins\DShowPlugin.dll"
 	Delete "$PROGRAMFILES32\OBS\plugins\GraphicsCapture.dll"
 	Delete "$PROGRAMFILES32\OBS\plugins\NoiseGate.dll"
@@ -298,10 +334,13 @@ Section "un.OBS Program Files"
 		Delete "$PROGRAMFILES64\OBS\OBSApi.dll"
 		Delete "$PROGRAMFILES64\OBS\services.xconfig"
 		Delete "$PROGRAMFILES64\OBS\*.pdb"
+		Delete "$PROGRAMFILES64\OBS\*.txt"
+		Delete "$PROGRAMFILES64\OBS\debug.txt"
 		Delete "$PROGRAMFILES64\OBS\ObsNvenc.dll"
 		Delete "$PROGRAMFILES64\OBS\dbghelp.dll"
 		Delete "$PROGRAMFILES64\OBS\locale\*.txt"
 		Delete "$PROGRAMFILES64\OBS\shaders\*.?Shader"
+		Delete "$PROGRAMFILES64\OBS\plugins\HubtagPluginWrapper.dll"
 		Delete "$PROGRAMFILES64\OBS\plugins\DShowPlugin.dll"
 		Delete "$PROGRAMFILES64\OBS\plugins\GraphicsCapture.dll"
 		Delete "$PROGRAMFILES64\OBS\plugins\NoiseGate.dll"
@@ -318,6 +357,7 @@ Section "un.OBS Program Files"
 	; Remove remaining directories
 	RMDir "$SMPROGRAMS\Open Broadcaster Software"
 	RMDir "$PROGRAMFILES32\OBS\plugins\GraphicsCapture\"
+	RMDir /r "$PROGRAMFILES32\OBS\plugins\HubtagPlugin"
 	RMDir "$PROGRAMFILES32\OBS\plugins\DShowPlugin\shaders\"
 	RMDir "$PROGRAMFILES32\OBS\plugins\DShowPlugin\locale\"
 	RMDir "$PROGRAMFILES32\OBS\plugins\DShowPlugin\"
@@ -328,8 +368,10 @@ Section "un.OBS Program Files"
 	RMDir "$PROGRAMFILES32\OBS\plugins"
 	RMDir "$PROGRAMFILES32\OBS\locale"
 	RMDir "$PROGRAMFILES32\OBS\shaders"
+	RMDir "$PROGRAMFILES32\OBS"
 	${if} ${RunningX64}
 		RMDir "$PROGRAMFILES64\OBS\plugins\GraphicsCapture\"
+		RMDir /r "$PROGRAMFILES64\OBS\plugins\HubtagPlugin"
 		RMDir "$PROGRAMFILES64\OBS\plugins\DShowPlugin\shaders\"
 		RMDir "$PROGRAMFILES64\OBS\plugins\DShowPlugin\locale\"
 		RMDir "$PROGRAMFILES64\OBS\plugins\DShowPlugin\"
@@ -342,14 +384,14 @@ Section "un.OBS Program Files"
 		RMDir "$PROGRAMFILES64\OBS\shaders"
 		RMDir "$PROGRAMFILES64\OBS"
 	${endif}
-	RMDir "$PROGRAMFILES32\OBS"
 SectionEnd
 
 Section /o "un.3rd Party Plugins" Section2
 	RMDir /r "$PROGRAMFILES32\OBS\plugins"
-	
+	RMDir "$PROGRAMFILES32\OBS"
 	${if} ${RunningX64}
 		RMDir /r "$PROGRAMFILES64\OBS\plugins"
+		RMDir "$PROGRAMFILES64\OBS"
 	${endif}
 SectionEnd
 

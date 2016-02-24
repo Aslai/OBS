@@ -1,0 +1,193 @@
+{
+	"obs-win32-bin": {
+		"name": "Open Broadcaster Software",
+		"version": "0.657b",
+		"platform": "Win32",
+		"path": "",
+		"source": "https:\/\/hubtag.net\/update\/OBS\/32bit\/",
+		"priority": 0,
+		"files": [
+			"[^\\\\\/]*",
+			"!services\\.xconfig"
+		]
+	},
+	"obs-win64-bin": {
+		"name": "Open Broadcaster Software",
+		"version": "0.657b",
+		"platform": "Win64",
+		"path": "",
+		"source": "https:\/\/hubtag.net\/update\/OBS\/64bit\/",
+		"priority": 0,
+		"files": [
+			"[^\\\\\/]*",
+			"!services\\.xconfig"
+		]
+	},
+	"dshowplugin-win32": {
+		"name": "DirectShow Plugin",
+		"version": "",
+		"platform": "Win32",
+		"path": "plugins\/",
+		"source": "https:\/\/hubtag.net\/update\/DirectShowPlugin\/32bit\/",
+		"priority": 5,
+		"files": [
+			"DShowPlugin\/shaders\/.*",
+			"DShowPlugin\/locale\/.*",
+			"DShowPlugin\\.dll"
+		]
+	},
+	"dshowplugin-win64": {
+		"name": "DirectShow Plugin",
+		"version": "",
+		"platform": "Win64",
+		"path": "plugins\/",
+		"source": "https:\/\/hubtag.net\/update\/DirectShowPlugin\/64bit\/",
+		"priority": 5,
+		"files": [
+			"DShowPlugin\/shaders\/.*",
+			"DShowPlugin\/locale\/.*",
+			"DShowPlugin\\.dll"
+		]
+	},
+	"gfxcaptureplugin-win32": {
+		"name": "Game Capture Plugin",
+		"version": "",
+		"platform": "Win32",
+		"path": "plugins\/",
+		"source": "https:\/\/hubtag.net\/update\/GraphicsCapturePlugin\/32bit\/",
+		"priority": 5,
+		"files": [
+			"GraphicsCapture\/.*",
+			"GraphicsCapture\\.dll"
+		]
+	},
+	"gfxcaptureplugin-win64": {
+		"name": "Game Capture Plugin",
+		"version": "",
+		"platform": "Win64",
+		"path": "plugins\/",
+		"source": "https:\/\/hubtag.net\/update\/GraphicsCapturePlugin\/64bit\/",
+		"priority": 5,
+		"files": [
+			"GraphicsCapture\/.*",
+			"GraphicsCapture\\.dll"
+		]
+	},
+	"obs-locale": {
+		"name": "Locale Files",
+		"version": "",
+		"platform": "all",
+		"path": "locale\/",
+		"source": "https:\/\/hubtag.net\/update\/OBS\/locale\/",
+		"priority": 10,
+		"files": [".*"]
+	},
+	"obs-services": {
+		"name": "Streaming Services List",
+		"version": "",
+		"platform": "all",
+		"path": "",
+		"source": "https:\/\/hubtag.net\/update\/OBS\/services\/",
+		"priority": 5,
+		"files": ["services\\.xconfig"]
+	},
+	"obs-shaders": {
+		"name": "Shader Files",
+		"version": "",
+		"platform": "all",
+		"path": "shaders\/",
+		"source": "https:\/\/hubtag.net\/update\/OBS\/shaders\/",
+		"priority": 5,
+		"files": [".*"]
+	},
+	"psvplugin-win32": {
+		"name": "Per-Scene Volume Plugin",
+		"version": "",
+		"platform": "Win32",
+		"path": "plugins\/",
+		"source": "https:\/\/hubtag.net\/update\/PSVPlugin\/32bit\/",
+		"priority": 5,
+		"files": [
+			"PSVPlugin\/locale\/.*",
+			"PSVPlugin\\.dll"
+		]
+	},
+	"noisegateplugin-win32": {
+		"name": "Noise Gate Plugin",
+		"version": "",
+		"platform": "Win32",
+		"path": "plugins\/",
+		"source": "https:\/\/hubtag.net\/update\/NoiseGatePlugin\/32bit\/",
+		"priority": 5,
+		"files": ["NoiseGate\\.dll"]
+	},
+	"noisegateplugin-win64": {
+		"name": "Noise Gate Plugin",
+		"version": "",
+		"platform": "Win64",
+		"path": "plugins\/",
+		"source": "https:\/\/hubtag.net\/update\/NoiseGatePlugin\/64bit\/",
+		"priority": 5,
+		"files": ["NoiseGate\\.dll"]
+	},
+	"psvplugin-win64": {
+		"name": "Per-Scene Volume Plugin",
+		"version": "",
+		"platform": "Win64",
+		"path": "plugins\/",
+		"source": "https:\/\/hubtag.net\/update\/PSVPlugin\/64bit\/",
+		"priority": 5,
+		"files": [
+			"PSVPlugin\/locale\/.*",
+			"PSVPlugin\\.dll"
+		]
+	},
+	"scenesw-win32": {
+		"name": "Scene Switcher Plugin",
+		"version": "",
+		"platform": "Win32",
+		"path": "plugins\/",
+		"source": "https:\/\/hubtag.net\/update\/scenesw\/32bit\/",
+		"priority": 10,
+		"files": [
+			"scenesw\/locale\/.*",
+			"scenesw\\.dll"
+		]
+	},
+	"scenesw-win64": {
+		"name": "Scene Switcher Plugin",
+		"version": "",
+		"platform": "Win64",
+		"path": "plugins\/",
+		"source": "https:\/\/hubtag.net\/update\/scenesw\/64bit\/",
+		"priority": 10,
+		"files": [
+			"scenesw\/locale\/.*",
+			"scenesw\\.dll"
+		]
+	},
+	"hubtag-win32": {
+		"name": "Hubtag Caster Plugin",
+		"version": "",
+		"platform": "Win32",
+		"path": "plugins\/",
+		"source": "https:\/\/hubtag.net\/update\/HubtagPlugin\/32bit\/",
+		"priority": 2,
+		"files": [
+			"HubtagPlugin\/.*",
+			"HubtagPluginWrapper\\.dll"
+		]
+	},
+	"hubtag-win64": {
+		"name": "Hubtag Caster Plugin",
+		"version": "",
+		"platform": "Win64",
+		"path": "plugins\/",
+		"source": "https:\/\/hubtag.net\/update\/HubtagPlugin\/64bit\/",
+		"priority": 2,
+		"files": [
+			"HubtagPlugin\/.*",
+			"HubtagPluginWrapper\\.dll"
+		]
+	}
+}

@@ -1,6 +1,10 @@
 *.exe
 *.dll
 
+installer/**/*.txt
+installer/**/*.pShader
+
+
 tests and backups/
 publish/
 Release_MD/

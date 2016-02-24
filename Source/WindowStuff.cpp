@@ -3674,7 +3674,7 @@ LRESULT CALLBACK OBS::OBSProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
                     break;
 
                 case ID_HELP_CHECK_FOR_UPDATES:
-                    OSCloseThread(OSCreateThread((XTHREAD)CheckUpdateThread, (LPVOID)1));
+                    //OSCloseThread(OSCreateThread((XTHREAD)CheckUpdateThread, (LPVOID)1));
                     break;
 
                 case ID_HELP_ANALYZE_CURRENT_LOG:
