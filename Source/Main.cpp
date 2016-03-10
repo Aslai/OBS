@@ -624,7 +624,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             else
             {
                 SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, SHGFP_TYPE_CURRENT, lpAppDataPath);
-                scat_n(lpAppDataPath, TEXT("\\OBS"), 4);
+                scat_n(lpAppDataPath, TEXT("\\Hubtag"), 7);
             }
 
             if(!OSFileExists(lpAppDataPath) && !OSCreateDirectory(lpAppDataPath))
